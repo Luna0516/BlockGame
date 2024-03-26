@@ -30,7 +30,7 @@ public class Block : PoolObject
         {
             Block otherBlock = collision.gameObject.GetComponent<Block>();
 
-            if(otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && level < 4)
+            if(otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && level == otherBlock.level && level < 4)
             {
                 float thisX = transform.position.x;
                 float thisY = transform.position.y;

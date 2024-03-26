@@ -82,8 +82,12 @@ public class Pool<T> : MonoBehaviour where T : PoolObject
             T comp = obj.GetComponent<T>();
             comp.onDisable += () => readyQueue.Enqueue(comp);
 
+            OnGenerateObjects(comp);
+
             newArray[i] = comp;
             obj.SetActive(false);
         }
     }
+
+    protected virtual void OnGenerateObjects(T comp) { }
 }

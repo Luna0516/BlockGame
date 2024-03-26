@@ -44,15 +44,15 @@ public class Test : MonoBehaviour
         inputActions.Test.Disable();
     }
 
-    private void Test1(InputAction.CallbackContext context) { }
-    private void Test2(InputAction.CallbackContext context) { }
-    private void Test3(InputAction.CallbackContext context) { }
-    private void Test4(InputAction.CallbackContext context) { }
-    private void Test5(InputAction.CallbackContext context) { }
-    private void Test6(InputAction.CallbackContext context) { }
-    private void Test7(InputAction.CallbackContext context) { }
-    private void Test8(InputAction.CallbackContext context) { }
-    private void Test9(InputAction.CallbackContext context) { }
-    private void Test10(InputAction.CallbackContext context) { }
+    protected virtual void Test1(InputAction.CallbackContext context) { }
+    protected virtual void Test2(InputAction.CallbackContext context) { }
+    protected virtual void Test3(InputAction.CallbackContext context) { }
+    protected virtual void Test4(InputAction.CallbackContext context) { }
+    protected virtual void Test5(InputAction.CallbackContext context) { }
+    protected virtual void Test6(InputAction.CallbackContext context) { }
+    protected virtual void Test7(InputAction.CallbackContext context) { }
+    protected virtual void Test8(InputAction.CallbackContext context) { }
+    protected virtual void Test9(InputAction.CallbackContext context) { }
+    protected virtual void Test10(InputAction.CallbackContext context) { }
     private void TestClick(InputAction.CallbackContext context) { }
 }

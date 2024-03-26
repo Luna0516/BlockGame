@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -552008488, guid: 649cc4ed61680044fbd81ad7a9cdd47b, type: 3}
+    - target: {fileID: 5914019394200395141, guid: f28a360d0e151d04687c5cb5bc12a9f5, type: 3}
+      propertyPath: shape
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6769563492484124991, guid: f28a360d0e151d04687c5cb5bc12a9f5, type: 3}
       propertyPath: m_Name
       value: Triangle
@@ -65,7 +69,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6769563492484124991, guid: f28a360d0e151d04687c5cb5bc12a9f5, type: 3}
-      insertIndex: -1
+      insertIndex: 4
       addedObject: {fileID: 167118730783130328}
   m_SourcePrefab: {fileID: 100100000, guid: f28a360d0e151d04687c5cb5bc12a9f5, type: 3}
 --- !u!1 &5796542533840151886 stripped
