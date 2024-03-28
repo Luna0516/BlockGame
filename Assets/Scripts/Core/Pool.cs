@@ -30,7 +30,7 @@ public class Pool<T> : MonoBehaviour where T : PoolObject
         }
     }
 
-    public T GetObject(Transform spawnTransform = null)
+    public T GetObject(bool active, Transform spawnTransform = null)
     {
         if (readyQueue.Count > 0)
         {
@@ -46,7 +46,8 @@ public class Pool<T> : MonoBehaviour where T : PoolObject
                 comp.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
                 comp.transform.localScale = Vector3.one;
             }
-            comp.gameObject.SetActive(true);
+
+            comp.gameObject.SetActive(active);
             return comp;
         }
         else

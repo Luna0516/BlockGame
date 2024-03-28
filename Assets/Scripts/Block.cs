@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : PoolObject
 {
     public bool isMerge = false;
     public int level = 0;
+    public int Level
+    {
+        get => level;
+        set
+        {
+            if(level != value)
+            {
+                level = value;
+                anim.SetInteger("Level", level);
+            }
+        }
+    }
     public Shape shape = Shape.None;
 
     Animator anim;

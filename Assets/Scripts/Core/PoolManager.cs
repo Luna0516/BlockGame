@@ -26,13 +26,13 @@ public class PoolManager : Singleton<PoolManager>
         switch (shape)
         {
             case Shape.Circle:
-                obj = circlePool.GetObject().gameObject;
+                obj = circlePool.GetObject(false).gameObject;
                 break;
             case Shape.Square:
-                obj = squarePool.GetObject().gameObject;
+                obj = squarePool.GetObject(false).gameObject;
                 break;
             case Shape.Triangle:
-                obj = trianglePool.GetObject().gameObject;
+                obj = trianglePool.GetObject(false).gameObject;
                 break;
             case Shape.None:
             default:
@@ -47,11 +47,37 @@ public class PoolManager : Singleton<PoolManager>
         return obj;
     }
 
-    public GameObject GetObject(Shape shape, Vector2 position)
+    public Block GetBlock(Shape shape, Vector2 position)
     {
         GameObject obj = GetObject(shape);
         obj.transform.position = position;
 
+        Block block = obj.GetComponent<Block>();
+
+        return block;
+    }
+
+    public GameObject GetRandomObject(Vector2 position)
+    {
+        int rand = Random.Range(1, 4);
+
+        GameObject obj = GetObject((Shape)rand);
+        obj.SetActive(true);
+        obj.transform.position = position;
+
+        Block block = obj.GetComponent<Block>();
+        block.Level = Random.Range(0, 5);
+        block.Active();
+
+        StartCoroutine(LifeTime(obj));
+
         return obj;
+    }
+
+    IEnumerator LifeTime(GameObject obj)
+    {
+        yield return new WaitForSeconds(5.0f);
+
+        obj.SetActive(false);
     }
 }

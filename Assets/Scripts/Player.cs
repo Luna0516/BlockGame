@@ -7,14 +7,12 @@ public class Player : MonoBehaviour
 {
     public bool isDropReady = false;
 
-    public GameObject currentBlock = null;
-    public GameObject keepBlock = null;
+    public Block currentBlock = null;
+    public Block nextBlock = null;
 
     public float moveSpeed = 2.0f;
 
     public Vector3 moveVec;
-
-    public List<GameObject> blockList = new List<GameObject>();
 
     PlayerInputActions inputActions;
 
@@ -24,9 +22,10 @@ public class Player : MonoBehaviour
     {
         inputActions = new PlayerInputActions();
 
-        onDropBlock += DropBlock;
-
-        CreateNextBlock();
+        if(GameManager.Inst.GameState == GameState.Play)
+        {
+            StartCoroutine(GameReady());
+        }
     }
 
     private void Update()
@@ -57,23 +56,60 @@ public class Player : MonoBehaviour
         inputActions.Player.Disable();
     }
 
-    private void CreateNextBlock()
+    private Block CreateNextBlock()
     {
-        if (currentBlock == null)
+        Block block = null;
+
+        int value = Random.Range(0, 3);
+
+        switch (value)
         {
-            currentBlock = PoolManager.Inst.GetObject(Shape.Circle, transform.position);
-            Block block = currentBlock.GetComponent<Block>();
-            onDropBlock += () =>
-            {
-                block.Active();
-            };
+            case 0:
+                block = PoolManager.Inst.GetBlock(Shape.Circle, transform.position);
+                break;
+            case 1:
+                block = PoolManager.Inst.GetBlock(Shape.Square, transform.position);
+                break;
+            case 2:
+                block = PoolManager.Inst.GetBlock(Shape.Triangle, transform.position);
+                break;
         }
+
+        return block;
     }
 
-    private void DropBlock()
+    private void SetNextBlock()
     {
+        currentBlock = nextBlock;
+        currentBlock.gameObject.SetActive(true);
+
+        Block block = CreateNextBlock();
+        nextBlock = block;
+    }
+
+    IEnumerator GameReady()
+    {
+        Block block = CreateNextBlock();
+        currentBlock = block;
+        block = CreateNextBlock();
+        nextBlock = block;
+
+        yield return new WaitForSeconds(1.0f);
+
+        currentBlock.gameObject.SetActive(true);
+        isDropReady = true;
+    }
+
+    IEnumerator Drop()
+    {
+        currentBlock.Active();
         currentBlock = null;
-        CreateNextBlock();
+
+        yield return new WaitForSeconds(0.5f);
+
+        SetNextBlock();
+
+        isDropReady = true;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -87,7 +123,8 @@ public class Player : MonoBehaviour
     {
         if (isDropReady)
         {
-            onDropBlock?.Invoke();
+            isDropReady = false;
+            StartCoroutine(Drop());
         }
     }
 

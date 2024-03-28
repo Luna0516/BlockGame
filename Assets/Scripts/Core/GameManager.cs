@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
             if(gameState != value)
             {
                 gameState = value;
+
                 switch (gameState)
                 {
                     case GameState.Execution:
@@ -43,8 +44,15 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public System.Action onGamePlaying;
+
     protected override void OnAwake()
     {
         Application.targetFrameRate = 120;
+    }
+
+    protected override void Initialize()
+    {
+        onGamePlaying = null;
     }
 }

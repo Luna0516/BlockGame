@@ -7,9 +7,13 @@ public class ButtonEvent : MonoBehaviour
 {
     public ButtonType type;
 
+    Button button;
+
+    public GameObject rulePanel;
+
     private void Awake()
     {
-        Button button = GetComponent<Button>();
+        button = GetComponent<Button>();
 
         button.onClick.AddListener(ClickButton);
     }
@@ -35,14 +39,13 @@ public class ButtonEvent : MonoBehaviour
 
     private void GameStart()
     {
-        Debug.Log("게임 시작 버튼 누름");
         SceneHandler.Inst.NextSceneName = "GamePlayScene";
         GameManager.Inst.GameState = GameState.Play;
     }
 
     private void GameRule()
     {
-        Debug.Log("게임 방법 버튼 누름");
+        rulePanel.SetActive(true);
     }
 
     private void GameQuit()
