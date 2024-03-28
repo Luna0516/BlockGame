@@ -16,14 +16,16 @@ public class TextDisplay : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Inst.GameState = GameState.Execution;
         StartCoroutine(BlinkTexture());
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.anyKeyDown)
         {
             SceneHandler.Inst.NextSceneName = "GameStartScene";
+            GameManager.Inst.GameState = GameState.Start;
         }
     }
 

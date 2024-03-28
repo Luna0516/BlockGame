@@ -13,3 +13,11 @@ public enum Shape
     Square,
     Triangle
 }
+
+public enum GameState
+{
+    None,
+    Execution,
+    Start,
+    Play
+}

@@ -16,7 +16,7 @@ public class SceneHandler : Singleton<SceneHandler>
             if (previousSceneName != value)
             {
                 previousSceneName = value;
-                Debug.Log($"이전 씬 이름 : {previousSceneName}");
+                //Debug.Log($"이전 씬 이름 : {previousSceneName}");
             }
         }
     }
@@ -30,7 +30,7 @@ public class SceneHandler : Singleton<SceneHandler>
             if (presentSceneName != value)
             {
                 presentSceneName = value;
-                Debug.Log($"현재 설정된 씬 이름 : {presentSceneName}");
+                //Debug.Log($"현재 설정된 씬 이름 : {presentSceneName}");
             }
         }
     }
@@ -44,7 +44,7 @@ public class SceneHandler : Singleton<SceneHandler>
             if(nextSceneName != value)
             {
                 nextSceneName = value;
-                Debug.Log($"다음 씬 이름 : {nextSceneName}");
+                //Debug.Log($"다음 씬 이름 : {nextSceneName}");
                 StartCoroutine(LoadScene());
             }
         }

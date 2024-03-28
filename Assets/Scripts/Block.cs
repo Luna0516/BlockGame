@@ -49,11 +49,17 @@ public class Block : PoolObject
     void Init()
     {
         isMerge = false;
-        rigid.simulated = true;
-        coll.enabled = true;
+        rigid.simulated = false;
+        coll.enabled = false;
         rigid.velocity = Vector2.zero;
         rigid.angularVelocity = 0;
         anim.SetInteger("Level", level);
+    }
+
+    public void Active()
+    {
+        rigid.simulated = true;
+        coll.enabled = true;
     }
 
     void LevelUp()

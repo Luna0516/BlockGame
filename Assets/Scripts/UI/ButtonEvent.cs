@@ -37,6 +37,7 @@ public class ButtonEvent : MonoBehaviour
     {
         Debug.Log("게임 시작 버튼 누름");
         SceneHandler.Inst.NextSceneName = "GamePlayScene";
+        GameManager.Inst.GameState = GameState.Play;
     }
 
     private void GameRule()
