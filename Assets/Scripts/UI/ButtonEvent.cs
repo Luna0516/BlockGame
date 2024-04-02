@@ -51,5 +51,6 @@ public class ButtonEvent : MonoBehaviour
     private void GameQuit()
     {
         Debug.Log("게임 종료 버튼 누름");
+        Application.Quit();
     }
 }

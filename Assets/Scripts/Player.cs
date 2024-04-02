@@ -6,11 +6,15 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public bool isDropReady = false;
+ 
+    public float moveSpeed = 2.0f;
+    float moveRange = 2.9f;
+
+    float minX;
+    float maxX;
 
     public Block currentBlock = null;
     public Block nextBlock = null;
-
-    public float moveSpeed = 2.0f;
 
     public Vector3 moveVec;
 
@@ -28,6 +32,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        minX = transform.position.x - moveRange;
+        maxX = transform.position.x + moveRange;
+    }
+
     private void Update()
     {
         transform.position += Time.deltaTime * moveVec * moveSpeed;
@@ -35,6 +45,15 @@ public class Player : MonoBehaviour
         if(currentBlock != null)
         {
             currentBlock.transform.position = transform.position;
+        }
+
+        if (transform.position.x < minX)
+        {
+            transform.position = new Vector3(maxX, transform.position.y);
+        }
+        else if (transform.position.x > maxX)
+        {
+            transform.position = new Vector3(minX, transform.position.y);
         }
     }
 

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : PoolObject
 {
     public bool isMerge = false;
+
+    public bool isActive = false;
+
     public int level = 0;
     public int Level
     {
@@ -37,6 +39,30 @@ public class Block : PoolObject
         Init();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isActive = true;
+
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            Block otherBlock = collision.gameObject.GetComponent<Block>();
+
+            if (otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && level == otherBlock.level && level < 4)
+            {
+                float thisX = transform.position.x;
+                float thisY = transform.position.y;
+                float otherX = otherBlock.transform.position.x;
+                float otherY = otherBlock.transform.position.y;
+
+                if (thisY < otherY || (thisY == otherY && thisX > otherX))
+                {
+                    otherBlock.Hide(transform.position);
+                    LevelUp();
+                }
+            }
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block"))
@@ -62,6 +88,7 @@ public class Block : PoolObject
     void Init()
     {
         isMerge = false;
+        isActive = false;
         rigid.simulated = false;
         coll.enabled = false;
         rigid.velocity = Vector2.zero;
@@ -88,6 +115,7 @@ public class Block : PoolObject
     void Hide(Vector3 targetPos)
     {
         isMerge = true;
+        isActive = false;
 
         rigid.simulated = false;
         coll.enabled = false;
