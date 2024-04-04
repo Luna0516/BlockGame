@@ -10,6 +10,7 @@ public class ButtonEvent : MonoBehaviour
     Button button;
 
     public GameObject rulePanel;
+    public GameObject settingPanel;
 
     private void Awake()
     {
@@ -27,6 +28,9 @@ public class ButtonEvent : MonoBehaviour
                 break;
             case ButtonType.GameRule:
                 GameRule();
+                break;
+            case ButtonType.GameSetting:
+                GameSetting();
                 break;
             case ButtonType.GameQuit:
                 GameQuit();
@@ -48,9 +52,13 @@ public class ButtonEvent : MonoBehaviour
         rulePanel.SetActive(true);
     }
 
+    private void GameSetting()
+    {
+        settingPanel.SetActive(true);
+    }
+
     private void GameQuit()
     {
-        Debug.Log("게임 종료 버튼 누름");
         Application.Quit();
     }
 }

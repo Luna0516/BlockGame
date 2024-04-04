@@ -109,6 +109,8 @@ public class Block : PoolObject
         rigid.velocity = Vector2.zero;
         rigid.angularVelocity = 0;
 
+        AddScore();
+
         StartCoroutine(LevelUpRoutine());
     }
 
@@ -121,6 +123,12 @@ public class Block : PoolObject
         coll.enabled = false;
 
         StartCoroutine(HideRoutine(targetPos));
+    }
+
+    void AddScore()
+    {
+        // 4, 12, 24, 40
+        GameManager.Inst.Player.Score += (level + 1) * (level + 2) * 2;
     }
 
     IEnumerator LevelUpRoutine()

@@ -6,6 +6,24 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public bool isDropReady = false;
+
+    private int score;
+    public int Score
+    {
+        get => score;
+        set
+        {
+            if(score != value)
+            {
+                score = value;
+                
+                if (onChangeScore != null)
+                {
+                    onChangeScore.Invoke(score);
+                }
+            }
+        }
+    }
  
     public float moveSpeed = 2.0f;
     float moveRange = 2.9f;
@@ -21,12 +39,19 @@ public class Player : MonoBehaviour
     PlayerInputActions inputActions;
 
     public System.Action onDropBlock;
+    public System.Action<Block> onSetNextBlock;
+    public System.Action<int> onChangeScore;
 
     private void Awake()
     {
         inputActions = new PlayerInputActions();
 
-        if(GameManager.Inst.GameState == GameState.Play)
+        onDropBlock = null;
+        onSetNextBlock = null;
+        onChangeScore = null;
+        score = 0;
+
+        if (GameManager.Inst.GameState == GameState.Play)
         {
             StartCoroutine(GameReady());
         }
@@ -36,6 +61,11 @@ public class Player : MonoBehaviour
     {
         minX = transform.position.x - moveRange;
         maxX = transform.position.x + moveRange;
+
+        if(onSetNextBlock != null)
+        {
+            onSetNextBlock.Invoke(nextBlock);
+        }
     }
 
     private void Update()
@@ -102,16 +132,15 @@ public class Player : MonoBehaviour
         currentBlock = nextBlock;
         currentBlock.gameObject.SetActive(true);
 
-        Block block = CreateNextBlock();
-        nextBlock = block;
+        nextBlock = CreateNextBlock();
+        onSetNextBlock.Invoke(nextBlock);
     }
 
     IEnumerator GameReady()
     {
-        Block block = CreateNextBlock();
-        currentBlock = block;
-        block = CreateNextBlock();
-        nextBlock = block;
+        currentBlock = CreateNextBlock();
+
+        nextBlock = CreateNextBlock();
 
         yield return new WaitForSeconds(1.0f);
 

@@ -3,6 +3,7 @@ public enum ButtonType
     None,
     GameStart,
     GameRule,
+    GameSetting,
     GameQuit
 }
 
