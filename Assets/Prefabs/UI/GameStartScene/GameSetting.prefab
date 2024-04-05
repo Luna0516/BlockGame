@@ -612,11 +612,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0397b0fc6d0fbaa45b7e869717be80ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  buttons: []
+  bgmSlider: {fileID: 0}
+  effectSlider: {fileID: 0}
 --- !u!1 &5314396736902209241
 GameObject:
   m_ObjectHideFlags: 0

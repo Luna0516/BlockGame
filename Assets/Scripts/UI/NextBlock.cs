@@ -21,7 +21,7 @@ public class NextBlock : MonoBehaviour
         GameManager.Inst.Player.onSetNextBlock += (block) =>
         {
             Shape shape = block.shape;
-            int level = block.level;
+            int level = block.Level;
 
             Sprite sprite = null;
             switch (shape)

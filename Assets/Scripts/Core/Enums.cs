@@ -22,3 +22,10 @@ public enum GameState
     Start,
     Play
 }
+
+public enum EffectTrack
+{
+    Attach,
+    LevelUp,
+    Button
+}

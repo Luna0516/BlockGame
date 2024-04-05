@@ -5,7 +5,6 @@ using UnityEngine;
 public class SoundManager : Singleton<SoundManager>
 {
     public AudioClip bgmSounds;
-
     public AudioClip[] effectSounds;
 
     public AudioSource bgm;
@@ -18,11 +17,25 @@ public class SoundManager : Singleton<SoundManager>
         StartCoroutine(Play());
     }
 
-    public void OnVolumeChanged(float volume)
+    public void OnBGMVolumeChanged(float volume)
     {
         bgm.volume = volume * 0.5f;
 
         DataManager.Inst.bgmVolume = volume;
+    }
+
+    public void OnEffectVolumeChanged(float volume)
+    {
+        effect.volume = volume * 0.5f;
+
+        DataManager.Inst.effectVolume = volume;
+    }
+
+    public void EffectSoundPlay(EffectTrack effectTrack)
+    {
+        effect.clip = effectSounds[(int)effectTrack];
+
+        effect.Play();
     }
 
     IEnumerator Play()

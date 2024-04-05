@@ -8,7 +8,7 @@ public class Block : PoolObject
 
     public bool isActive = false;
 
-    public int level = 0;
+    private int level = 0;
     public int Level
     {
         get => level;
@@ -18,6 +18,7 @@ public class Block : PoolObject
             {
                 level = value;
                 anim.SetInteger("Level", level);
+                SoundManager.Inst.EffectSoundPlay(EffectTrack.LevelUp);
             }
         }
     }
@@ -41,13 +42,17 @@ public class Block : PoolObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isActive = true;
+        if (!isActive)
+        {
+            isActive = true;
+            SoundManager.Inst.EffectSoundPlay(EffectTrack.Attach);
+        }
 
         if (collision.gameObject.CompareTag("Block"))
         {
             Block otherBlock = collision.gameObject.GetComponent<Block>();
 
-            if (otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && level == otherBlock.level && level < 4)
+            if (otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && Level == otherBlock.Level && Level < 4)
             {
                 float thisX = transform.position.x;
                 float thisY = transform.position.y;
@@ -69,7 +74,7 @@ public class Block : PoolObject
         {
             Block otherBlock = collision.gameObject.GetComponent<Block>();
 
-            if(otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && level == otherBlock.level && level < 4)
+            if(otherBlock.shape != Shape.None && otherBlock.shape == shape && !isMerge && !otherBlock.isMerge && Level == otherBlock.Level && Level < 4)
             {
                 float thisX = transform.position.x;
                 float thisY = transform.position.y;
@@ -93,7 +98,7 @@ public class Block : PoolObject
         coll.enabled = false;
         rigid.velocity = Vector2.zero;
         rigid.angularVelocity = 0;
-        anim.SetInteger("Level", level);
+        anim.SetInteger("Level", Level);
     }
 
     public void Active()
@@ -128,17 +133,17 @@ public class Block : PoolObject
     void AddScore()
     {
         // 4, 12, 24, 40
-        GameManager.Inst.Player.Score += (level + 1) * (level + 2) * 2;
+        GameManager.Inst.Player.Score += (Level + 1) * (Level + 2) * 2;
     }
 
     IEnumerator LevelUpRoutine()
     {
         yield return new WaitForSeconds(0.2f);
 
-        level++;
+        Level++;
         // 레벨업으로 변경될 내용들 
         // ex) 점점커지는 애니메이션, 이펙트 실행, 사운드 실행 등
-        anim.SetInteger("Level", level);
+        anim.SetInteger("Level", Level);
 
         yield return new WaitForSeconds(0.2f);
 

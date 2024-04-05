@@ -21,6 +21,7 @@ public class ButtonEvent : MonoBehaviour
 
     private void ClickButton()
     {
+        SoundManager.Inst.EffectSoundPlay(EffectTrack.Button);
         switch (type)
         {
             case ButtonType.GameStart:

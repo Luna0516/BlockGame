@@ -36,6 +36,7 @@ public class GameRulePanel : MonoBehaviour
 
     void CloseButton()
     {
+        SoundManager.Inst.EffectSoundPlay(EffectTrack.Button);
         gameObject.SetActive(false);
     }
 }

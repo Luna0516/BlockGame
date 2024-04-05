@@ -14,6 +14,7 @@ public class ScoreText : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Inst.Player.onChangeScore = null;
         GameManager.Inst.Player.onChangeScore += ScoreChange;
 
         ScoreChange(GameManager.Inst.Player.Score);

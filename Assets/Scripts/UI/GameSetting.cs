@@ -16,7 +16,10 @@ public class GameSetting : MonoBehaviour
         button.onClick.AddListener(CloseButton);
 
         bgmSlider.value = SoundManager.Inst.bgm.volume * 2;
-        bgmSlider.onValueChanged.AddListener(SoundManager.Inst.OnVolumeChanged);
+        bgmSlider.onValueChanged.AddListener(SoundManager.Inst.OnBGMVolumeChanged);
+
+        effectSlider.value = SoundManager.Inst.effect.volume * 2;
+        effectSlider.onValueChanged.AddListener(SoundManager.Inst.OnEffectVolumeChanged);
     }
 
     private void Start()
@@ -42,6 +45,7 @@ public class GameSetting : MonoBehaviour
 
     void CloseButton()
     {
+        SoundManager.Inst.EffectSoundPlay(EffectTrack.Button);
         gameObject.SetActive(false);
     }
 }
