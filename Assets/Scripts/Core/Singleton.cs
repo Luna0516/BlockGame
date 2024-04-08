@@ -83,8 +83,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 Initialize();
             }
+            else
+            {
+                PreInitialize();
+            }
         }
     }
 
     protected virtual void Initialize() { }
+    protected virtual void PreInitialize() { }
 }

@@ -9,7 +9,20 @@ public class Player : MonoBehaviour
 
     public bool isDropReady = false;
 
-    public bool isPause = false;
+    private bool isPause = false;
+    public bool IsPause
+    {
+        get => isPause;
+        set
+        {
+            if(isPause != value)
+            {
+                isPause = value;
+
+                InputActive(!isPause);
+            }
+        }
+    }
 
     private int score;
     public int Score
@@ -54,7 +67,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(GameReady());
         }
-
+        GameManager.Inst.onGameOver = null;
         GameManager.Inst.onGameOver += GameOver;
     }
 
@@ -106,7 +119,7 @@ public class Player : MonoBehaviour
         nextBlock = null;
 
         active = false;
-        isPause = false;
+        IsPause = false;
         isDropReady = false;
 
         onDropBlock = null;
@@ -150,7 +163,9 @@ public class Player : MonoBehaviour
     {
         if(active == _active) {  return; }
 
-        if(active)
+        active = _active;
+
+        if (active)
         {
             inputActions.Player.Enable();
             inputActions.Player.Move.performed += OnMove;
@@ -221,8 +236,8 @@ public class Player : MonoBehaviour
     {
         if(GameManager.Inst.GameState == GameState.Play)
         {
-            isPause = !isPause;
-            GameManager.Inst.onGamePause.Invoke(isPause);
+            IsPause = !IsPause;
+            GameManager.Inst.onGamePause.Invoke(IsPause);
         }
     }
 }

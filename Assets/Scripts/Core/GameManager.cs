@@ -56,9 +56,4 @@ public class GameManager : Singleton<GameManager>
     {
         Application.targetFrameRate = 120;
     }
-
-    protected override void Initialize()
-    {
-        onGamePlaying = null;
-    }
 }

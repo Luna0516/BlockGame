@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EndLine : MonoBehaviour
 {
+    bool gameOver = false;
+
     float elapsedTime = 0.0f;
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -16,8 +18,9 @@ public class EndLine : MonoBehaviour
                 elapsedTime += Time.deltaTime;
             }
 
-            if(elapsedTime > 0.5f)
+            if(elapsedTime > 0.5f && !gameOver)
             {
+                gameOver = true;
                 GameManager.Inst.GameState = GameState.GameOver;
             }
         }

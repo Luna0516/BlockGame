@@ -40,7 +40,7 @@ public class Pause : MonoBehaviour
     void CloseButton()
     {
         SoundManager.Inst.EffectSoundPlay(EffectTrack.Button);
-        GameManager.Inst.Player.isPause = false;
+        GameManager.Inst.Player.IsPause = false;
         GameManager.Inst.onGamePause.Invoke(false);
     }
 

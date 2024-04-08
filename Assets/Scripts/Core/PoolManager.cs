@@ -53,6 +53,7 @@ public class PoolManager : Singleton<PoolManager>
         obj.transform.position = position;
 
         Block block = obj.GetComponent<Block>();
+        block.Level = Random.Range(0, 2);
 
         return block;
     }

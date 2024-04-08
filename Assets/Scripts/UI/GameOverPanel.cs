@@ -13,6 +13,11 @@ public class GameOverPanel : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
 
         CanvasGroup(false);
+
+        GameManager.Inst.onGameOver += () =>
+        {
+            CanvasGroup(true);
+        };
     }
 
     void CanvasGroup(bool active)
