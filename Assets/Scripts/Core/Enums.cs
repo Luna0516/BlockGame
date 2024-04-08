@@ -1,7 +1,8 @@
 public enum ButtonType
 {
     None,
-    GameStart,
+    GameMain,
+    GamePlay,
     GameRule,
     GameSetting,
     GameQuit

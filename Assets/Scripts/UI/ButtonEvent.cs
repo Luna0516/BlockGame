@@ -24,8 +24,11 @@ public class ButtonEvent : MonoBehaviour
         SoundManager.Inst.EffectSoundPlay(EffectTrack.Button);
         switch (type)
         {
-            case ButtonType.GameStart:
-                GameStart();
+            case ButtonType.GameMain:
+                GameMain();
+                break;
+            case ButtonType.GamePlay:
+                GamePlay();
                 break;
             case ButtonType.GameRule:
                 GameRule();
@@ -42,7 +45,13 @@ public class ButtonEvent : MonoBehaviour
         }
     }
 
-    private void GameStart()
+    private void GameMain()
+    {
+        SceneHandler.Inst.NextSceneName = "GameStartScene";
+        GameManager.Inst.GameState = GameState.Start;
+    }
+
+    private void GamePlay()
     {
         SceneHandler.Inst.NextSceneName = "GamePlayScene";
         GameManager.Inst.GameState = GameState.Play;

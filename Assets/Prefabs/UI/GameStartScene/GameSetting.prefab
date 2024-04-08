@@ -613,8 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
-  bgmSlider: {fileID: 0}
-  effectSlider: {fileID: 0}
+  bgmSlider: {fileID: 6590726223134092675}
+  effectSlider: {fileID: 563362046321868723}
 --- !u!1 &5314396736902209241
 GameObject:
   m_ObjectHideFlags: 0

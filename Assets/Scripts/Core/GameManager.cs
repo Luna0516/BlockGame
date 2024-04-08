@@ -45,6 +45,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     public System.Action onGamePlaying;
+    public System.Action<bool> onGamePause;
 
     protected override void OnAwake()
     {

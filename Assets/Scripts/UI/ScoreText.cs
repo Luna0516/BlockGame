@@ -12,9 +12,8 @@ public class ScoreText : MonoBehaviour
         text = GetComponent<TextMeshProUGUI>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        GameManager.Inst.Player.onChangeScore = null;
         GameManager.Inst.Player.onChangeScore += ScoreChange;
 
         ScoreChange(GameManager.Inst.Player.Score);

@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public bool isDropReady = false;
 
+    public bool isPause = false;
+
     private int score;
     public int Score
     {
@@ -45,11 +47,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerInputActions();
-
-        onDropBlock = null;
-        onSetNextBlock = null;
-        onChangeScore = null;
-        score = 0;
 
         if (GameManager.Inst.GameState == GameState.Play)
         {
@@ -103,6 +100,23 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.canceled -= OnMove;
         inputActions.Player.Move.performed -= OnMove;
         inputActions.Player.Disable();
+
+        if (currentBlock != null)
+            currentBlock.gameObject.SetActive(false);
+        if (nextBlock != null)
+            nextBlock.gameObject.SetActive(false);
+        
+        currentBlock = null;
+        nextBlock = null;
+
+        isPause = false;
+        isDropReady = false;
+
+        onDropBlock = null;
+        onSetNextBlock = null;
+        onChangeScore = null;
+
+        score = 0;
     }
 
     private Block CreateNextBlock()
@@ -180,7 +194,8 @@ public class Player : MonoBehaviour
     {
         if(GameManager.Inst.GameState == GameState.Play)
         {
-            Debug.Log("게임 메뉴창 열기");
+            isPause = !isPause;
+            GameManager.Inst.onGamePause.Invoke(isPause);
         }
     }
 }

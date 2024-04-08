@@ -16,7 +16,7 @@ public class NextBlock : MonoBehaviour
         image = GetComponent<Image>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         GameManager.Inst.Player.onSetNextBlock += (block) =>
         {
