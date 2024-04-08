@@ -28,17 +28,13 @@ public class Pause : MonoBehaviour
         effectSlider.value = SoundManager.Inst.effect.volume * 2;
         effectSlider.onValueChanged.AddListener(SoundManager.Inst.OnEffectVolumeChanged);
 
+        GameManager.Inst.onGamePause = null;
         GameManager.Inst.onGamePause += CanvasGroup;
     }
 
     private void Start()
     {
         CanvasGroup(false);
-    }
-
-    private void OnDisable()
-    {
-        GameManager.Inst.onGamePause = null;
     }
 
     void CloseButton()

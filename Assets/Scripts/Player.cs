@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    bool active = false;
+
     public bool isDropReady = false;
 
     public bool isPause = false;
@@ -52,6 +54,8 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(GameReady());
         }
+
+        GameManager.Inst.onGameOver += GameOver;
     }
 
     private void Start()
@@ -86,20 +90,12 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        inputActions.Player.Enable();
-        inputActions.Player.Move.performed += OnMove;
-        inputActions.Player.Move.canceled += OnMove;
-        inputActions.Player.Drop.performed += OnDrop;
-        inputActions.Player.Manu.performed += OnManu;
+        InputActive(true);
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Manu.performed -= OnManu;
-        inputActions.Player.Drop.performed -= OnDrop;
-        inputActions.Player.Move.canceled -= OnMove;
-        inputActions.Player.Move.performed -= OnMove;
-        inputActions.Player.Disable();
+        InputActive(false);
 
         if (currentBlock != null)
             currentBlock.gameObject.SetActive(false);
@@ -109,6 +105,7 @@ public class Player : MonoBehaviour
         currentBlock = null;
         nextBlock = null;
 
+        active = false;
         isPause = false;
         isDropReady = false;
 
@@ -139,6 +136,36 @@ public class Player : MonoBehaviour
         }
 
         return block;
+    }
+
+    private void GameOver()
+    {
+        InputActive(false);
+
+        DataManager.Inst.RankUpdate(score);
+        DataManager.Inst.SaveData();
+    }
+
+    void InputActive(bool _active)
+    {
+        if(active == _active) {  return; }
+
+        if(active)
+        {
+            inputActions.Player.Enable();
+            inputActions.Player.Move.performed += OnMove;
+            inputActions.Player.Move.canceled += OnMove;
+            inputActions.Player.Drop.performed += OnDrop;
+            inputActions.Player.Manu.performed += OnManu;
+        }
+        else
+        {
+            inputActions.Player.Manu.performed -= OnManu;
+            inputActions.Player.Drop.performed -= OnDrop;
+            inputActions.Player.Move.canceled -= OnMove;
+            inputActions.Player.Move.performed -= OnMove;
+            inputActions.Player.Disable();
+        }
     }
 
     private void SetNextBlock()

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using TMPro;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
@@ -23,11 +22,15 @@ public class DataManager : Singleton<DataManager>
     {
         path = $"{Application.dataPath}/Save/";
         fullPath = $"{path}Save.json";
+
+        LoadData();
     }
 
-    public void SaveRankingData()
+    public void SaveData()
     {
         data.scores = scores;
+        data.bgmVolume = bgmVolume;
+        data.effectVolume = effectVolume;
 
         string json = JsonUtility.ToJson(data);
 
@@ -49,6 +52,8 @@ public class DataManager : Singleton<DataManager>
 
             Data loadedData = JsonUtility.FromJson<Data>(json);
             scores = loadedData.scores;
+            bgmVolume = loadedData.bgmVolume;
+            effectVolume = loadedData.effectVolume;
         }
         else
         {
@@ -73,23 +78,14 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    public void SetDefaultData()
+    private void SetDefaultData()
     {
         for (int i = 0; i < 3; i++)
         {
-            int score = 0;
-
-            scores = new int[3];
-
-            scores[i] = score;
+            scores[i] = 0;
         }
-    }
 
-    public void RefreshRankLines(TextMeshProUGUI[] texts, int[] rankScores)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            texts[i].text = $"{i + 1} Rank : {rankScores[i]}";
-        }
+        bgmVolume = 1;
+        effectVolume = 1;
     }
 }

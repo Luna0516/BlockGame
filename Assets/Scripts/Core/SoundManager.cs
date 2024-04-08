@@ -22,6 +22,7 @@ public class SoundManager : Singleton<SoundManager>
         bgm.volume = volume * 0.5f;
 
         DataManager.Inst.bgmVolume = volume;
+        DataManager.Inst.SaveData();
     }
 
     public void OnEffectVolumeChanged(float volume)
@@ -29,6 +30,7 @@ public class SoundManager : Singleton<SoundManager>
         effect.volume = volume * 0.5f;
 
         DataManager.Inst.effectVolume = volume;
+        DataManager.Inst.SaveData();
     }
 
     public void EffectSoundPlay(EffectTrack effectTrack)
@@ -43,6 +45,7 @@ public class SoundManager : Singleton<SoundManager>
         yield return new WaitForSeconds(0.5f);
 
         bgm.volume = DataManager.Inst.bgmVolume * 0.5f;
+        effect.volume = DataManager.Inst.effectVolume * 0.5f;
 
         bgm.Play();
     }

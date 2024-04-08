@@ -21,7 +21,8 @@ public enum GameState
     None,
     Execution,
     Start,
-    Play
+    Play,
+    GameOver
 }
 
 public enum EffectTrack

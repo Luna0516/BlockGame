@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     private GameState gameState = GameState.None;
+    // 이걸 어떻게 활용할까.... 고민중...
     public GameState GameState
     {
         get => gameState;
@@ -21,6 +22,9 @@ public class GameManager : Singleton<GameManager>
                     case GameState.Start:
                         break;
                     case GameState.Play:
+                        break;
+                    case GameState.GameOver:
+                        onGameOver?.Invoke();
                         break;
                     case GameState.None:
                     default:
@@ -45,6 +49,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     public System.Action onGamePlaying;
+    public System.Action onGameOver;
     public System.Action<bool> onGamePause;
 
     protected override void OnAwake()

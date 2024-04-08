@@ -18,7 +18,7 @@ public class EndLine : MonoBehaviour
 
             if(elapsedTime > 0.5f)
             {
-                Debug.Log("GameOver");
+                GameManager.Inst.GameState = GameState.GameOver;
             }
         }
     }
