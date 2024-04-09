@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(GameReady());
         }
+
         GameManager.Inst.onGameOver = null;
         GameManager.Inst.onGameOver += GameOver;
     }
@@ -157,6 +158,8 @@ public class Player : MonoBehaviour
 
         DataManager.Inst.RankUpdate(score);
         DataManager.Inst.SaveData();
+
+        DataManager.Inst.onDataSet.Invoke();
     }
 
     void InputActive(bool _active)

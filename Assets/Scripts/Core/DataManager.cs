@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
+    public bool[] isNewScores = new bool[3];
+    public int[] scores = new int[3];
+
     [Range(0f, 1f)]
     public float bgmVolume = 1;
 
     [Range(0f, 1f)]
     public float effectVolume = 1;
 
-    public int[] scores = new int[3];
-
     Data data = new Data();
 
     string path;
     string fullPath;
+
+    public System.Action onDataSet;
 
     protected override void OnAwake()
     {
@@ -28,7 +31,8 @@ public class DataManager : Singleton<DataManager>
 
     public void SaveData()
     {
-        data.scores = scores;
+        data.isNewScore = isNewScores;
+        data.score = scores;
         data.bgmVolume = bgmVolume;
         data.effectVolume = effectVolume;
 
@@ -51,7 +55,8 @@ public class DataManager : Singleton<DataManager>
             string json = File.ReadAllText(fullPath);
 
             Data loadedData = JsonUtility.FromJson<Data>(json);
-            scores = loadedData.scores;
+            isNewScores = loadedData.isNewScore;
+            scores = loadedData.score;
             bgmVolume = loadedData.bgmVolume;
             effectVolume = loadedData.effectVolume;
         }
@@ -63,14 +68,21 @@ public class DataManager : Singleton<DataManager>
 
     public void RankUpdate(int score)
     {
+        for(int i = 0; i < 3; i++)
+        {
+            isNewScores[i] = false;
+        }
+
         for (int i = 0; i < 3; i++)
         {
             if (scores[i] < score)
             {
-                for (int j = 3 - 1; j > i; j--)
+                for (int j = 2; j > i; j--)
                 {
                     scores[j] = scores[j - 1];
                 }
+
+                isNewScores[i] = true;
                 scores[i] = score;
 
                 break;
@@ -82,6 +94,7 @@ public class DataManager : Singleton<DataManager>
     {
         for (int i = 0; i < 3; i++)
         {
+            isNewScores[i] = false;
             scores[i] = 0;
         }
 

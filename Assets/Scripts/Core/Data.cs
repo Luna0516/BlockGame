@@ -1,6 +1,7 @@
 public class Data
 {
-    public int[] scores;
+    public bool[] isNewScore;
+    public int[] score;
 
     public float bgmVolume;
     public float effectVolume;

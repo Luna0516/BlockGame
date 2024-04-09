@@ -14,7 +14,7 @@ public class GameOverPanel : MonoBehaviour
 
         CanvasGroup(false);
 
-        GameManager.Inst.onGameOver += () =>
+        DataManager.Inst.onDataSet += () =>
         {
             CanvasGroup(true);
         };
