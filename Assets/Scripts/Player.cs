@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     public Block currentBlock = null;
     public Block nextBlock = null;
 
-    public Vector3 moveVec;
+    Vector3 moveVec;
 
     PlayerInputActions inputActions;
 
